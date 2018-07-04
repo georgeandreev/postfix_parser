@@ -11,9 +11,8 @@ class Parser(object):
 	REMOVED_PATTERN = "([ABCDEF0-9]{11})\:\sremoved"
 
 
-	def __init__(self, log_path):
+	def __init__(self):
 		super(Parser, self).__init__()
-		self.log_path = log_path
 
 
 	def parse_str(self, s):
@@ -23,28 +22,28 @@ class Parser(object):
 			t = 0
 			mail_id = groups[0]
 			self.add_to_buffer(mail_id, groups)
-			return t
+			return groups
 		groups = re.search(self.FROM_PATTERN, s)
 		if groups:
 			groups = groups.groups()
 			t = 1
 			mail_id = groups[0]
 			self.add_to_mail(mail_id, t, groups)
-			return t
+			return groups
 		groups = re.search(self.TO_PATTERN, s)
 		if groups:
 			groups = groups.groups()
 			t = 2
 			mail_id = groups[0]
 			self.add_to_mail(mail_id, t, groups)
-			return t
+			return groups
 		groups = re.search(self.REMOVED_PATTERN, s)
 		if groups:
 			groups = groups.groups()
 			t = 3
 			mail_id = groups[0]
 			self.remove_buff(mail_id)
-			return t
+			return groups
 
 
 	def add_to_buffer(self, mail_id, groups):
@@ -67,8 +66,8 @@ class Logical(Parser):
 	mails = {}
 
 
-	def __init__(self, log_path):
-		super(Logical, self).__init__(log_path)
+	def __init__(self):
+		super(Logical, self).__init__()
 
 
 	def get_all_mails_info(self):
@@ -101,8 +100,8 @@ class SimpleReport(Logical):
 	failed = 0
 
 
-	def __init__(self, log_path):
-		super(SimpleReport, self).__init__(log_path)
+	def __init__(self):
+		super(SimpleReport, self).__init__()
 
 
 	def get_all_info(self):
