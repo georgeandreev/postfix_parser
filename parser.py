@@ -128,6 +128,7 @@ class SimpleReport(Logical):
 		for status in statuses_info:
 			info += "	%s - %s\n" % (status, str(statuses_info[status]))
 		info += "Final status: %s" % (statuses[-1])
+		info = "%s %s %s %s" % (mail_id, mail_from, mail_to, final_status)
 		self.info[mail_id] = info
 		return info
 	
@@ -141,5 +142,8 @@ if __name__ == '__main__':
 		p.parse_str(line)
 	f.close()
 	p.get_all_mails_info()
-	print(list(p.mails.keys())[0])
-	print(p.get_info('38126DF05B1'))
+	p.get_all_info()
+	for item in p.info:
+		print(p.info[item])
+	# print(list(p.mails.keys())[0])
+	# print(p.get_info('38126DF05B1'))
