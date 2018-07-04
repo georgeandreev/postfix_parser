@@ -5,10 +5,10 @@ class Parser(object):
 	buff = {}
 	list_of_mails = {}
 
-	INIT_PATTERN = "\w+\s\d+\s\d+\:\d+\:\d+\s[a-z0-9\-]+\spostfix\/\w+\[\d+\]\:\s([ABCDEF0-9]{11})\:\s.+sasl_method\=[A-Z]+.+sasl_username\=(\S+)"
-	FROM_PATTERN = "\w+\s\d+\s\d+\:\d+\:\d+\s[a-z0-9\-]+\spostfix\/\w+\[\d+\]\:\s([ABCDEF0-9]{11})\:\sfrom\=<(\S+)>"
-	TO_PATTERN = "\w+\s\d+\s\d+\:\d+\:\d+\s[a-z0-9\-]+\spostfix\/\w+\[\d+\]\:\s([ABCDEF0-9]{11})\:\sto\=<(\S+)>.+status\=(\S+)"
-	REMOVED_PATTERN = "\w+\s\d+\s\d+\:\d+\:\d+\s[a-z0-9\-]+\spostfix\/\w+\[\d+\]\:\s([ABCDEF0-9]{11})\:\sremoved"
+	INIT_PATTERN = "([ABCDEF0-9]{11})\:\s.+sasl_username\=(\S+)"
+	FROM_PATTERN = "([ABCDEF0-9]{11})\:\sfrom\=<(\S+)>"
+	TO_PATTERN = "([ABCDEF0-9]{11})\:\sto\=<(\S+)>.+status\=(\S+)"
+	REMOVED_PATTERN = "([ABCDEF0-9]{11})\:\sremoved"
 
 
 	def __init__(self, log_path):
