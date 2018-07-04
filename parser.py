@@ -97,6 +97,8 @@ class Logical(Parser):
 
 class SimpleReport(Logical):
 	info = {}
+	success = 0
+	failed = 0
 
 
 	def __init__(self, log_path):
@@ -129,6 +131,10 @@ class SimpleReport(Logical):
 			info += "	%s - %s\n" % (status, str(statuses_info[status]))
 		info += "Final status: %s" % (statuses[-1])
 		info = "%s %s %s %s" % (mail_id, mail_from, mail_to, final_status)
+		if final_status == 'sent':
+			self.success += 1
+		else:
+			self.failed += 1
 		self.info[mail_id] = info
 		return info
 	
@@ -145,5 +151,4 @@ if __name__ == '__main__':
 	p.get_all_info()
 	for item in p.info:
 		print(p.info[item])
-	# print(list(p.mails.keys())[0])
-	# print(p.get_info('38126DF05B1'))
+	print("Success: %s\nFail: %s" % (str(p.success), str(p.failed)))
